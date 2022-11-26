@@ -1,0 +1,40 @@
+{% extends "sablona.html" %}
+
+{% block obsah_stranky %}
+<section id="denicek">
+    <article>
+        <header>datum</header>
+        <section>zápis</section>
+        <footer>podpis</footer>
+    </article>
+    <article>
+        <header>datum</header>
+        <section>zápis</section>
+        <footer>podpis</footer>
+    </article>
+    <article>
+        <header>datum</header>
+        <section>zápis</section>
+        <footer>podpis</footer>
+    </article>
+</section>
+<section id="dotazy">
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Dotaz</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for email, dotaz in databaze.items() %}
+                <tr>
+                    <td>{{ email }}</td>
+                    <td>{{ dotaz }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+{% endblock %}
