@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE-edge">
+    <title>Library | {% block subtitle %}{% endblock %}</title>
+    <meta name="author" content="Vlasta">
+    <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="css/style.css")}}">
+</head>
+<body>
+    <header>
+        <h1>My Library</h1>
+        <p>Books in my library</p>
+    </header>
+    <nav class="">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/author">Authors</a></li>
+            <li><a href="/book">Books</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block page_content %}
+
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; Vlasta Michalcová, 2022</p>
+    </footer>
+</body>
+</html>

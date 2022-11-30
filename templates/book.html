@@ -1,0 +1,37 @@
+{% extends "template.html" %}
+
+{% block subtitle %}
+Book
+{% endblock %}
+
+{% block page_content %}
+<form action="/author" method="post">
+    <fieldset>
+        <label for="name">Name</label>
+        <input type="text" name="name" placeholder="name of the book" required>
+
+        <label for="publication">Date of publication:</label>
+        <input type="date" name="publication" placeholder="publication date" required>
+
+
+        <label for="autor">Select author:</label>
+        <select name="authors" required>
+            {% for autor in Authors %}
+            <option value="author">{{ autor.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="genres">Genres</label>
+        <select name="genres">
+            <option value="horror">Horror</option>
+            <option value="novel">Novel</option>
+            <option value="comedy">Comedy</option>
+            <option value="fantasy">Fantasy</option>
+        </select>
+    </fieldset>
+    <button type="submit">Submit</button>
+</form>
+{% if message %}
+<p style="color:green">{{ message }}</p>
+{% endif %}
+{% endblock %}
