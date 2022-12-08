@@ -1,0 +1,50 @@
+{% extends "template.html" %}
+
+{% block subtitle %}
+Author
+{% endblock %}
+
+{% block page_content %}
+<form action="/author" method="post">
+    <fieldset>
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" placeholder="author name" class="form-control" required>
+
+        <label for="birth_date" class="form-label">Birth Date:</label>
+        <input type="date" name="birth_date" placeholder="birth date"  class="form-control" required>
+
+        <label for="country" class="form-label">Country:</label>
+        <input type="text" name="country" placeholder="country" class="form-control" required>
+
+        <label for="bio" class="form-label">Biography</label>
+        <input type="text" name="bio" placeholder="biography" class="form-control" required>
+    </fieldset>
+    <button type="submit">Submit</button>
+</form>
+{% if message %}
+<p style="color:green">{{ message }}</p>
+{% endif %}
+
+<section id="authors">
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th>Author</th>
+                <th>Birth Date</th>
+                <th>Country</th>
+                <th>Biography</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in Authors %}
+                <tr>
+                    <td>{{ author.name }}</td>
+                    <td>{{ author.birthDate }}</td>
+                    <td>{{ author.country }}</td>
+                    <td>{{ author.biography }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

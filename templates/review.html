@@ -1,0 +1,40 @@
+{% extends "template.html" %}
+
+{% block subtitle %}
+Review
+{% endblock %}
+
+{% block page_content %}
+<form action="/review" method="post">
+    <fieldset>
+        <div class="mb-3">
+        <label class="form-label" for="book_name">Book Name</label>
+         <select class="form-control" name="book_name">
+            {% for book in Books %}
+            <option value={{ book.name }}>{{ book.name }}</option>
+
+            {% endfor %}
+        </select>
+        </div>
+
+        <div class="mb-3">
+        <label for="started" class="form-label">Started reading:</label>
+        <input type="date" class="form-control" name="started" >
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label" for="finished">Finished reading:</label>
+        <input  class="form-control" type="date" name="finished">
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label" for="review">Review</label>
+        <textarea name="review" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+    </fieldset>
+    <button type="submit">Submit</button>
+</form>
+{% if message %}
+<p style="color:green">{{ message }}</p>
+{% endif %}
+{% endblock %}

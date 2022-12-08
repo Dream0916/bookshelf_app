@@ -5,28 +5,36 @@ Book
 {% endblock %}
 
 {% block page_content %}
-<form action="/author" method="post">
+<form action="/book" method="post">
     <fieldset>
-        <label for="name">Name</label>
-        <input type="text" name="name" placeholder="name of the book" required>
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" placeholder="name of the book" class="form-control" required>
 
-        <label for="publication">Date of publication:</label>
-        <input type="date" name="publication" placeholder="publication date" required>
+        <label for="publication" class="form-label">Date of publication:</label>
+        <input type="date" name="publication" placeholder="publication date" class="form-control">
 
 
-        <label for="autor">Select author:</label>
-        <select name="authors" required>
-            {% for autor in Authors %}
-            <option value="author">{{ autor.name }}</option>
+        <label for="author" class="form-label">Select author:</label>
+        <select name="author" class="form-control">
+            {% for author in Authors %}
+            <option value={{ author.name }}>{{ author.name }}</option>
+
             {% endfor %}
         </select>
 
-        <label for="genres">Genres</label>
-        <select name="genres">
+        <label for="genres" class="form-label">Genres</label>
+        <select name="genres" class="form-control">
             <option value="horror">Horror</option>
             <option value="novel">Novel</option>
             <option value="comedy">Comedy</option>
             <option value="fantasy">Fantasy</option>
+        </select>
+
+        <label for="status" class="form-label">Status</label>
+        <select name="status" class="form-control">
+            <option value="want to read">want to read</option>
+            <option value="read">read</option>
+            <option value="currently reading">currently reading</option>
         </select>
     </fieldset>
     <button type="submit">Submit</button>
@@ -34,4 +42,5 @@ Book
 {% if message %}
 <p style="color:green">{{ message }}</p>
 {% endif %}
+
 {% endblock %}

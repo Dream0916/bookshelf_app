@@ -1,32 +1,12 @@
 {% extends "template.html" %}
 
-{% block obsah_stranky %}
+{% block page_content %}
 
-<section id="authors">
-    <table>
-        <thead>
-            <tr>
-                <th>Author</th>
-                <th>Birth Date</th>
-                <th>Country</th>
-                <th>Biography</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for autor in Authors %}
-                <tr>
-                    <td>{{ autor.name }}</td>
-                    <td>{{ autor.birthDate }}</td>
-                    <td>{{ autor.country }}</td>
-                    <td>{{ autor.biography }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+<div class="container-fluid">
+<img src="/static/images/bookshelf.jpg" class="img-fluid mx-auto d-block" alt="bookshelf" >
 
 <section id="books">
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Title</th>
@@ -47,5 +27,6 @@
         </tbody>
     </table>
 </section>
+</div>
 
 {% endblock %}
