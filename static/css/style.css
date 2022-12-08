@@ -1,0 +1,21 @@
+#header {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-family: "Calibri Light";
+    text-transform: uppercase ;
+}
+
+section {
+    padding-bottom: 30px;
+}
+
+h2:hover{
+    font-weight: bold !important;
+    color: rgba(0,0,0,0.88);
+}
+
+.table-hover tbody tr:hover td {
+    background: aqua;
+}

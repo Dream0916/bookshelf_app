@@ -86,6 +86,14 @@ def review():
         review = request.form["review"]
 
         BookReview(book_name=book_name, date_started=date_started, date_finished=date_finished, review=review).save()
+
+        if Book.objects == BookReview.objects.book_name:
+
+            Book.objects.status = "read"
+
+            return render_template("review.html", message="status changed to read",
+                                   Authors=Author.objects, Books=Book.objects)
+
         return render_template("review.html", message="Review added", Authors=Author.objects, Books=Book.objects)
 
 

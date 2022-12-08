@@ -2,31 +2,108 @@
 
 {% block page_content %}
 
-<div class="container-fluid">
-<img src="/static/images/bookshelf.jpg" class="img-fluid mx-auto d-block" alt="bookshelf" >
 
-<section id="books">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Published</th>
-                <th>Author</th>
-                <th>Genre</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for book in Books %}
+    <section id="header">
+        <img src="/static/images/bookshelf.jpg" class="img-fluid mx-auto d-block" alt="bookshelf" >
+    </section>
+    <section id="books">
+        <section id="currently-reading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-10">
+        <h2>Books I Am Currently Reading</h2>
+                        </div>
+            <div class="col-2"><button onclick="location.href = 'book'">Add Book</button></div>
+                    </div>
+                </div>
+        <table class="table table-striped table-hover">
+            <thead>
                 <tr>
-                    <td>{{ book.name }}</td>
-                    <td>{{ book.publication }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.genres }}</td>
+                    <th>Title</th>
+                    <th>Published</th>
+                    <th>Author</th>
+                    <th>Genre</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+            </thead>
+            <tbody>
+                {% for book in Books %}
+                {% if book.status == "currently reading" %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.publication }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.genres }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+            </section>
+
+        <section id="read"><div class="container">
+                <div class="row">
+                    <div class="col-10">
+        <h2>Books That I Have Read</h2>
+                        </div>
+            <div class="col-2"><button onclick="location.href = 'review'">Add Book</button></div>
+                    </div>
+                </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Published</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in Books %}
+                {% if book.status == "read" %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.publication }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.genres }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+            </section>
+        <section id="want-to-read">
+ <div class="container">
+                <div class="row">
+                    <div class="col-10">
+        <h2>Books I Want To Read</h2>
+                        </div>
+            <div class="col-2"><button onclick="location.href = 'book'">Add Book</button></div>
+                    </div>
+                </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Published</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in Books %}
+                {% if book.status == "want to read" %}
+                    <tr>
+                        <td>{{ book.name }}</td>
+                        <td>{{ book.publication }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.genres }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+            </section>
+    </section>
 </div>
 
 {% endblock %}
