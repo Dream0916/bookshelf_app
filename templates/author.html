@@ -32,16 +32,16 @@ Author
                 <th>Author</th>
                 <th>Birth Date</th>
                 <th>Country</th>
-                <th>Biography</th>
+
             </tr>
         </thead>
         <tbody>
             {% for author in Authors %}
                 <tr>
-                    <td>{{ author.name }}</td>
+                    <td><a href="/author_{{ author.name }}">{{ author.name }}</a></td>
                     <td>{{ author.birthDate }}</td>
                     <td>{{ author.country }}</td>
-                    <td>{{ author.biography }}</td>
+
                 </tr>
             {% endfor %}
         </tbody>

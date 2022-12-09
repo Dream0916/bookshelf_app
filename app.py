@@ -87,14 +87,44 @@ def review():
 
         BookReview(book_name=book_name, date_started=date_started, date_finished=date_finished, review=review).save()
 
-        if Book.objects == BookReview.objects.book_name:
 
-            Book.objects.status = "read"
 
-            return render_template("review.html", message="status changed to read",
+        book = Book.objects(name=book_name).first()
+        book.update(status="read")
+        book.save()
+
+
+        return render_template("review.html", message="status changed to read",
                                    Authors=Author.objects, Books=Book.objects)
 
-        return render_template("review.html", message="Review added", Authors=Author.objects, Books=Book.objects)
+def generate_html_document(review):
+
+    html_document = """
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Book Review: {}</title>
+            </head>
+            <body>
+                <h1>Book Review: {}</h1>
+                <p><b>Book name:</b> {}</p>
+                <p><b>Date started:</b> {}</p>
+                <p><b>Date finished:</b> {}</p>
+                <p><b>Review:</b> {}</p>
+            </body>
+        </html>
+    """.format(review.book_name, review.book_name, review.book_name, review.date_started, review.date_finished, review.review)
+
+    return html_document
+
+
+for review in BookReview.objects:
+    html_document = generate_html_document(review)
+
+    # Save the HTML document to a file
+    with open("templates/reviews/review_{}.html".format(review.book_name), "w", encoding="utf-8") as f:
+        f.write(html_document)
+
 
 
 if __name__ == "__main__":
