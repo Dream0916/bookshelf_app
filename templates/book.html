@@ -5,6 +5,50 @@ Book
 {% endblock %}
 
 {% block page_content %}
+{% if book %}
+  <h2>Editing book: {{ book.name }}</h2>
+  <form action="/update_book" method="post">
+<fieldset>
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" placeholder="name of the book" class="form-control" value="{{ book.name }}" required>
+
+        <label for="publication" class="form-label">Date of publication:</label>
+        <input type="date" name="publication" placeholder="publication date" class="form-control" value="{{ book.publication }}">
+
+
+        <label for="author" class="form-label">Select author:</label>
+        <select name="author" class="form-control" value="{{ book.author }}">
+            {% for author in Authors %}
+            <option value={{ author.name }}>{{ author.name }}</option>
+
+            {% endfor %}
+        </select>
+
+        <label for="genres" class="form-label">Genres</label>
+        <select name="genres" class="form-control" value="{{ book.genre }}">
+            <option value="horror">Horror</option>
+            <option value="novel">Novel</option>
+            <option value="comedy">Comedy</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="science fiction">Science Fiction</option>
+            <option value="poems">Poems</option>
+            <option value="romance">Romance</option>
+            <option value="biography">Biography</option>
+            <option value="crimi">Crimi</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="status" class="form-label">Status</label>
+        <select name="status" class="form-control" value="{{ book.status }}">
+            <option value="want to read">want to read</option>
+            <option value="read">read</option>
+            <option value="currently reading">currently reading</option>
+        </select>
+    </fieldset>
+
+  <button type="submit">Update</button></form>
+{% else %}
 <form action="/book" method="post">
     <fieldset>
         <label for="name" class="form-label">Name</label>
@@ -45,6 +89,7 @@ Book
     </fieldset>
     <button type="submit">Submit</button>
 </form>
+{% endif %}
 {% if message %}
 <p style="color:green">{{ message }}</p>
 {% endif %}

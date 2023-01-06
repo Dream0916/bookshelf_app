@@ -7,8 +7,8 @@ import pymongo
 from pymongo import MongoClient
 
 app = Flask(__name__)
-# connect(host="mongodb://admin:admin@mongodb:27017/my_db?authSource=admin")
-connect(host="mongodb://localhost:27017/my_db")
+connect(host="mongodb://admin:admin@mongodb:27017/my_db?authSource=admin")
+#connect(host="mongodb://localhost:27017/my_db")
 
 
 class Author(Document):
@@ -97,35 +97,55 @@ def review():
         return render_template("review.html", message="status changed to read",
                                    Authors=Author.objects, Books=Book.objects)
 
-def generate_html_document(review):
+@app.route("/edit_author", methods=["POST"])
+def edit_author():
+  author_id = request.form["author_id"]
+  author = Author.objects(id=author_id).first()
+  return render_template("author.html", author=author)
 
-    html_document = """
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Book Review: {}</title>
-            </head>
-            <body>
-                <h1>Book Review: {}</h1>
-                <p><b>Book name:</b> {}</p>
-                <p><b>Date started:</b> {}</p>
-                <p><b>Date finished:</b> {}</p>
-                <p><b>Review:</b> {}</p>
-            </body>
-        </html>
-    """.format(review.book_name, review.book_name, review.book_name, review.date_started, review.date_finished, review.review)
+@app.route("/delete_author", methods=["POST"])
+def delete_author():
+  author_id = request.form["author_id"]
+  author = Author.objects(id=author_id).first()
+  author.delete()
+  return redirect(url_for("author"))
 
-    return html_document
+@app.route("/update_author", methods=["POST"])
+def update_author():
+  author_id = request.form["author_id"]
+  author = Author.objects(id=author_id).first()
+  author.name = request.form["name"]
+  author.birth_date = request.form["birth_date"]
+  author.country = request.form["country"]
+  author.biography = request.form["bio"]
+  author.save()
+  return redirect(url_for("author"))
 
+@app.route("/edit_book", methods=["POST"])
+def edit_book():
+  book_id = request.form["book_id"]
+  book = Book.objects(id=book_id).first()
+  return render_template("book.html", book=book)
 
-for review in BookReview.objects:
-    html_document = generate_html_document(review)
+@app.route("/delete_book", methods=["POST"])
+def delete_book():
+  book_id = request.form["book_id"]
+  book = Book.objects(id=book_id).first()
+  book.delete()
+  return redirect(url_for("book"))
 
-    # Save the HTML document to a file
-    with open("templates/reviews/review_{}.html".format(review.book_name), "w", encoding="utf-8") as f:
-        f.write(html_document)
-
-
+@app.route("/update_book", methods=["POST"])
+def update_book():
+  book_id = request.form["book_id"]
+  book = Book.objects(id=book_id).first()
+  book.name = request.form["name"]
+  book.publication = request.form["publication"]
+  book.author = request.form["country"]
+  book.genres = request.form["bio"]
+  book.status = request.form["status"]
+  book.save()
+  return redirect(url_for("book"))
 
 if __name__ == "__main__":
     app.run(debug=True)
+

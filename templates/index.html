@@ -1,19 +1,16 @@
 {% extends "template.html" %}
-
 {% block page_content %}
 
-
-
-    <section id="books">
-        <section id="currently-reading">
-            <div class="container">
-                <div class="row">
-                    <div class="col-10">
-        <h2>Books I Am Currently Reading</h2>
-                        </div>
-            <div class="col-2"><button class="btn btn-light" onclick="location.href = 'book'">Add Book</button></div>
-                    </div>
+<section id="books">
+    <section id="currently-reading">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <h2>Books I Am Currently Reading</h2>
                 </div>
+            </div>
+        </div>
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -21,87 +18,140 @@
                     <th>Published</th>
                     <th>Author</th>
                     <th>Genre</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for book in Books %}
                 {% if book.status == "currently reading" %}
-                    <tr>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.publication }}</td>
-                        <td>{{ book.author }}</td>
-                        <td>{{ book.genres }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.publication }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-2">
+                                <form action="/edit_book" method="post">
+                                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                                    <input type="submit" value="Edit" class="btn btn-info">
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form action="/delete_book" method="post">
+                                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 {% endif %}
                 {% endfor %}
             </tbody>
         </table>
-            </section>
+    </section>
 
-        <section id="read"><div class="container">
-                <div class="row">
-                    <div class="col-10">
-        <h2>Books That I Have Read</h2>
-                        </div>
-            <div class="col-2"><button class="btn btn-light" onclick="location.href = 'review'">Add Book</button></div>
-                    </div>
+    <section id="read">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <h2>Books That I Have Read</h2>
                 </div>
+            <div class="col-2"><button class="btn btn-success" onclick="location.href = 'review'">Add Book</button></div>
+            </div>
+        </div>
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Published</th>
-                    <th>Author</th>
-                    <th>Genre</th>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for book in Books %}
                 {% if book.status == "read" %}
-                    <tr>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.publication }}</td>
-                        <td>{{ book.author }}</td>
-                        <td>{{ book.genres }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.publication }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <form action="/edit_book" method="post">
+                                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                                    <input type="submit" value="Edit" class="btn btn-info">
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form action="/delete_book" method="post">
+                                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                                    <input type="submit" value="Delete" class="btn btn-danger">
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
                 {% endif %}
                 {% endfor %}
             </tbody>
         </table>
-            </section>
-        <section id="want-to-read">
- <div class="container">
-                <div class="row">
-                    <div class="col-10">
-        <h2>Books I Want To Read</h2>
-                        </div>
-            <div class="col-2"><button class="btn btn-light" onclick="location.href = 'book'">Add Book</button></div>
-                    </div>
-                </div>
+    </section>
+
+    <section id="want-to-read">
+        <div class="container">
+            <div class="row">
+            <div class="col-10">
+                <h2>Books I Want To Read</h2>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-success" onclick="location.href = 'book'">Add Book</button></div>
+            </div>
+        </div>
         <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Published</th>
-                    <th>Author</th>
-                    <th>Genre</th>
-                </tr>
+            <tr>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Action</th>
+            </tr>
             </thead>
             <tbody>
                 {% for book in Books %}
                 {% if book.status == "want to read" %}
-                    <tr>
-                        <td>{{ book.name }}</td>
-                        <td>{{ book.publication }}</td>
-                        <td>{{ book.author }}</td>
-                        <td>{{ book.genres }}</td>
-                    </tr>
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.publication }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.genres }}</td>
+                    <td><div class="row">
+                        <div class="col-md-2">
+                            <form action="/edit_book" method="post">
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="submit" value="Edit" class="btn btn-info">
+                    </form>
+                        </div>
+                    <div class="col-2">
+                        <form action="/delete_book" method="post">
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                    </div>
+                    </div></td>
+                </tr>
                 {% endif %}
                 {% endfor %}
             </tbody>
         </table>
-            </section>
     </section>
+</section>
 </div>
 
 {% endblock %}

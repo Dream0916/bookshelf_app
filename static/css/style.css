@@ -17,5 +17,13 @@ h2:hover{
 }
 
 .table-hover tbody tr:hover td {
-    background: aqua;
+    background: #b6e8e8;
+}
+
+.view-content {
+  display: none;
+}
+
+.view-button:focus + .view-content {
+  display: block;
 }
